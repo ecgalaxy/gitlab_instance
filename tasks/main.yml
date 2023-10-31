@@ -1,1 +1,24 @@
 ---
+- name: Set vars for community edition
+  ansible.builtin.include_tasks:
+    file: set-ce-edition.yml
+  when:
+    - gitlab_edition == 'community'
+
+- name: Set vars for enterprise edition
+  ansible.builtin.include_tasks:
+    file: set-ee-edition.yml
+  when:
+    - gitlab_edition == 'enterprise'
+
+- name: Install prerequisites
+  ansible.builtin.include_tasks: install-prerequisites.yml
+
+- name: Setup GitLab repo
+  ansible.builtin.include_tasks: setup-gitlab-repo.yml
+
+- name: Install GitLab
+  ansible.builtin.include_tasks: install-gitlab.yml
+
+- name: Customise GitLab
+  ansible.builtin.include_tasks: customise.yml

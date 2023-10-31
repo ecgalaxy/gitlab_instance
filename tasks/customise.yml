@@ -1,0 +1,9 @@
+---
+- name: Copy the configuration file
+  ansible.builtin.copy:
+    src: "{{ gitlab_rb_file_path }}"
+    dest: /etc/gitlab/gitlab.rb
+    mode: '0600'
+  when: gitlab_rb_file_path | length > 0
+  notify: Reconfigure GitLab
+  become: true

@@ -1,0 +1,17 @@
+---
+- name: Push GitLab repo file
+  ansible.builtin.template:
+    src: templates/gitlab.repo.j2
+    dest: "/etc/yum.repos.d/gitlab_gitlab-{{ edition_abbreviation }}.repo"
+    owner: root
+    group: root
+    mode: '0644'
+  register: repo_file_pushed
+  become: true
+
+- name: Clear yum cache
+  ansible.builtin.command:
+    cmd: yum clean all
+  when:
+    - repo_file_pushed.changed # noqa: no-handler
+  changed_when: true

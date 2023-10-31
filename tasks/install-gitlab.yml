@@ -1,0 +1,5 @@
+---
+- name: Install GitLab using package
+  ansible.builtin.yum:
+    name: "{{ gitlab_package }}"
+  become: true

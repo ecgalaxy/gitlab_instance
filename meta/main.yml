@@ -8,16 +8,6 @@ galaxy_info:
   platforms:
     - name: Amazon Linux 
       versions:
-        - "2"
         - "2023"
-    - name: EL
-      versions:
-        - "7"
-        - "8"
-    - name: Ubuntu
-      versions:
-        - bionic
-        - focal
-        - jammy
   galaxy_tags: []
 dependencies: []

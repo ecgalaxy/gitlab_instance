@@ -4,6 +4,13 @@
   vars_files:
     - ../../defaults/main.yml
   tasks:
-    - name: Assert something
+    - name: "Execute gitlab-ctl status"
+      ansible.builtin.shell: "gitlab-ctl status"
+      register: status
+      become: true
+
+    - name: "Verify GitLab status"
       ansible.builtin.assert:
-        that: true
+        that:
+          - "'run: gitaly' in status.stdout"
+          - "'run: nginx' in status.stdout"

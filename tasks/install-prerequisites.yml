@@ -1,0 +1,24 @@
+---
+- name: Install packages
+  ansible.builtin.yum:
+    name:
+      - openssh-clients
+      - openssh-server
+      - perl
+      - policycoreutils
+      - yum-utils
+  register: packages_installed
+  become: true
+
+- name: Start/enable services
+  ansible.builtin.systemd:
+    name: "{{ service }}"
+    enabled: yes
+    state: started
+  loop_control:
+    loop_var: service
+  loop:
+    - sshd
+  when:
+    - packages_installed.changed # noqa: no-handler
+  become: true

@@ -5,6 +5,8 @@
     - name: Include gitlab_instance
       ansible.builtin.include_role:
         name: gitlab_instance
+      vars:
+        gitlab_rb_file_path: "gitlab-test.rb"
   environment:
     http_proxy: "{{ lookup('env', 'http_proxy') }}"
     https_proxy: "{{ lookup('env', 'https_proxy') }}"
